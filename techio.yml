@@ -4,4 +4,8 @@ plan:
   statement: markdowns/welcome.md
 - title: Theory
   statement: markdowns/theory.md
+- title: BF Quine
+  statement: markdowns/bf_quine.md
+- title: Generate data definition
+  statement: markdowns/data_generator.md
 
