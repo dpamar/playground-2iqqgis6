@@ -8,4 +8,6 @@ plan:
   statement: markdowns/bf_quine.md
 - title: Generate data definition
   statement: markdowns/data_generator.md
+- title: Final
+  statement: markdowns/final.md
 
