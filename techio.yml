@@ -12,4 +12,6 @@ plan:
   statement: markdowns/final.md
 - title: 2-step-quines
   statement: markdowns/2step.md
+- title: BF 2-step-quines
+  statement: markdowns/bf_2step.md
 
