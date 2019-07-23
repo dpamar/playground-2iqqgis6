@@ -27,7 +27,7 @@ Let's apply the fixed point theorem now : there is a program P that does the sam
 
 The proof is smart, and gives a way to build a 2-step-quine, but this may be a bit too complex, especially in BF. Printing instructions is expensive.
 
-Instead, let's consider this other version of a 2-step-quine, that does not leverage the proof of existence but rather the method usewd in the previous steps
+Instead, let's consider this other version of a 2-step-quine, that does not leverage the proof of existence but rather the method used in the previous steps
 
 ```java
 public class TwoStepQuine1 {
