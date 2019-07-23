@@ -10,4 +10,6 @@ plan:
   statement: markdowns/data_generator.md
 - title: Final
   statement: markdowns/final.md
+- title: 2-step-quines
+  statement: markdowns/2step.md
 
