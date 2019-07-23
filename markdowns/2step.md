@@ -14,7 +14,7 @@ We can use the same fixed point theorem to prove that at least one 2-step-quine 
 
 _Well, actually, at least 2 of them exists, because P produces Q that produces P and Q produces P that produces Q..._
 
-So, let's have a computable transformation that, for any computable function F, prints, for each line of F source code, a _print_ instruction of this same line.
+So, let's have a computable transformation named _H_ that, for any computable function F, prints, for each line of F source code, a _print_ instruction of this same line.
 
 By construction, executing G = H(F) produces F source code.
 
