@@ -60,48 +60,49 @@ Yes, as long as any computable function can be implemented. But obviously, there
 ```java
 public class Quine {
     public static void main(String[] args) {
-        char[] code_1 = new char[]{/*** to be completed ***/};
-        char[] code_2 = new char[]{/*** to be completed ***/};
+        char[] code = new char[]{/*** to be replaced ***/};
         boolean comma = false;
-        for(char c : code_1)System.out.print(c);
-        for(char c : code_1){if(comma)System.out.print(','); comma = true; System.out.print((int)c);}
-        System.out.println("};");
-        System.out.println("        char[] code_2 =new char[]{");
-        comma = false;
-        for(char c : code_2){if(comma)System.out.print(','); comma = true; System.out.print((int)c);}
-        for(char c : code_2)System.out.print(c);
+        System.out.println("public class Quine {");
+        System.out.println("    public static void main(String[] args) {");
+        System.out.print("        char[] code = new char[]{");
+        for(char c : code){if(comma)System.out.print(','); comma = true; System.out.print("'" + (c=='\''||c=='\\' ? "\\"+c : c == '\n' ? "\\n": c) +"'");}
+        for(char c : code)System.out.print(c);
 }}
 ```
 Ok, so this program:
-* Prints some chars from an array
-* Prints some integers comma separated from the same array
-* Prints a couple of lines
-* Prints some integers comma separated from another array
-* Prints some chars from the same second array
+* Declares an array, and a boolean value
+* Prints some lines (from our source code)
+* Then (_this is the trick_) prints array contents as comma-separated chars
+* And finally (_this is the second part of the trick_) prints array contents as chars
 
 
-Now, let's suppose our first array contains ASCII codes from the first char of our program up to the first comment. Then, the program will
-* first, print the source code beginning up to the first array definition
-* then, completes first array definition using array itself
+Now, let's suppose our array contains chars from the end of the comment to the end of the program. Our program will then
+* first, print the source code beginning up to the array definition
+* then prints array contents from array itself
+* then prints end of source code, using array as well
 
-Okay.... Then, we understand what second array should contain : all the ASCII codes from the last comment to the end of the program ! 
+Okay....
+
+_Note_: we handle special chars like quotes, backslashes or carriage returns differently in the code
+
+So, now, let's create an array of chars from '];' on third line up to the end of the program (and escape quotes, backslashes and carriage returns...).
 
 ```java
 public class Quine {
-     public static void main(String[] args) {
-         char[] code_1 =new char[]{112,117,98,108,105,99,32,99,108,97,115,115,32,81,117,105,110,101,32,123,10,32,32,32,32,32,112,117,98,108,105,99,32,115,116,97,116,105,99,32,118,111,105,100,32,109,97,105,110,40,83,116,114,105,110,103,91,93,32,97,114,103,115,41,32,123,10,32,32,32,32,32,32,32,32,32,99,104,97,114,91,93,32,99,111,100,101,95,49,32,61,110,101,119,32,99,104,97,114,91,93,123};
-        char[] code_2 =new char[]{
-125,59,10,32,32,32,32,32,32,32,32,98,111,111,108,101,97,110,32,99,111,109,109,97,32,61,32,102,97,108,115,101,59,10,32,32,32,32,32,32,32,32,102,111,114,40,99,104,97,114,32,99,32,58,32,99,111,100,101,95,49,41,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,99,41,59,10,32,32,32,32,32,32,32,32,102,111,114,40,99,104,97,114,32,99,32,58,32,99,111,100,101,95,49,41,123,105,102,40,99,111,109,109,97,41,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,39,44,39,41,59,32,99,111,109,109,97,32,61,32,116,114,117,101,59,32,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,40,105,110,116,41,99,41,59,125,10,32,32,32,32,32,32,32,32,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,108,110,40,34,125,59,34,41,59,10,32,32,32,32,32,32,32,32,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,108,110,40,34,32,32,32,32,32,32,32,32,99,104,97,114,91,93,32,99,111,100,101,95,50,32,61,110,101,119,32,99,104,97,114,91,93,123,34,41,59,10,32,32,32,32,32,32,32,32,99,111,109,109,97,32,61,32,102,97,108,115,101,59,10,32,32,32,32,32,32,32,32,102,111,114,40,99,104,97,114,32,99,32,58,32,99,111,100,101,95,50,41,123,105,102,40,99,111,109,109,97,41,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,39,44,39,41,59,32,99,111,109,109,97,32,61,32,116,114,117,101,59,32,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,40,105,110,116,41,99,41,59,125,10,32,32,32,32,32,32,32,32,102,111,114,40,99,104,97,114,32,99,32,58,32,99,111,100,101,95,50,41,83,121,115,116,101,109,46,111,117,116,46,112,114,105,110,116,40,99,41,59,10,125,125};
+    public static void main(String[] args) {
+        char[] code = new char[]{'}',';','\n',' ',' ',' ',' ',' ',' ',' ',' ','b','o','o','l','e','a','n',' ','c','o','m','m','a',' ','=',' ','f','a','l','s','e',';','\n',' ',' ',' ',' ',' ',' ',' ',' ','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','l','n','(','"','p','u','b','l','i','c',' ','c','l','a','s','s',' ','Q','u','i','n','e',' ','{','"',')',';','\n',' ',' ',' ',' ',' ',' ',' ',' ','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','l','n','(','"',' ',' ',' ',' ','p','u','b','l','i','c',' ','s','t','a','t','i','c',' ','v','o','i','d',' ','m','a','i','n','(','S','t','r','i','n','g','[',']',' ','a','r','g','s',')',' ','{','"',')',';','\n',' ',' ',' ',' ',' ',' ',' ',' ','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','(','"',' ',' ',' ',' ',' ',' ',' ',' ','c','h','a','r','[',']',' ','c','o','d','e',' ','=',' ','n','e','w',' ','c','h','a','r','[',']','{','"',')',';','\n',' ',' ',' ',' ',' ',' ',' ',' ','f','o','r','(','c','h','a','r',' ','c',' ',':',' ','c','o','d','e',')','{','i','f','(','c','o','m','m','a',')','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','(','\'',',','\'',')',';',' ','c','o','m','m','a',' ','=',' ','t','r','u','e',';',' ','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','(','"','\'','"',' ','+',' ','(','c','=','=','\'','\\','\'','\'','|','|','c','=','=','\'','\\','\\','\'',' ','?',' ','"','\\','\\','"','+','c',' ',':',' ','c',' ','=','=',' ','\'','\\','n','\'',' ','?',' ','"','\\','\\','n','"',':',' ','c',')',' ','+','"','\'','"',')',';','}','\n',' ',' ',' ',' ',' ',' ',' ',' ','f','o','r','(','c','h','a','r',' ','c',' ',':',' ','c','o','d','e',')','S','y','s','t','e','m','.','o','u','t','.','p','r','i','n','t','(','c',')',';','\n','}','}','\n'};
         boolean comma = false;
-        for(char c : code_1)System.out.print(c);
-        for(char c : code_1){if(comma)System.out.print(','); comma = true; System.out.print((int)c);}
-        System.out.println("};");
-        System.out.println("        char[] code_2 =new char[]{");
-        comma = false;
-        for(char c : code_2){if(comma)System.out.print(','); comma = true; System.out.print((int)c);}
-        for(char c : code_2)System.out.print(c);
+        System.out.println("public class Quine {");
+        System.out.println("    public static void main(String[] args) {");
+        System.out.print("        char[] code = new char[]{");
+        for(char c : code){if(comma)System.out.print(','); comma = true; System.out.print("'" + (c=='\''||c=='\\' ? "\\"+c : c == '\n' ? "\\n": c) +"'");}
+        for(char c : code)System.out.print(c);
 }}
 ```
 Tadaaaaa
 
 A quine, in Java. Now, let's talk about BF :)
+
+_Note_ : to avoid complex char escapes, we may have stored our data into integers instead of chars.
+
+
